@@ -273,7 +273,7 @@ const fechaFin = parseLocalDate(document.getElementById('fechaFinSimple').value)
 if (!monto || !fechaIni || !fechaFin) return;
 
 
-let indIni = await findIndexBCRA(fechaIni);
+let indIni = await findIndexBCRA(new Date(fechaIni.getFullYear(), fechaIni.getMonth(), fechaIni.getDate() - 1));
 let indFin = await findIndexBCRA(fechaFin);
 let coef = coeficiente(indIni, indFin);
 let interes = monto * coef / 100;
@@ -375,7 +375,7 @@ async function calcular() {
 
     document.getElementById('detalleMora').innerHTML = '';
     if (fechaMora) {
-        let indiceInicialMora = await findIndexBCRA(fechaMora);
+        let indiceInicialMora = await findIndexBCRA(new Date(fechaMora.getFullYear(), fechaMora.getMonth(), fechaMora.getDate() - 1));
         let fechaHastaMora = pagos.length > 0 ? pagos[0].fecha : fechaActual;
         let indicePago1 = await findIndexBCRA(fechaHastaMora);
         let coefMora = coeficiente(indiceInicialMora, indicePago1);
